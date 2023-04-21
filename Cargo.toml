@@ -1,4 +1,5 @@
 [package]
+description = "Thin wrapper around `humantime` crate to provide a CLI interface."
 name = "humantime-cli"
 version = "0.1.0"
 edition = "2021"
