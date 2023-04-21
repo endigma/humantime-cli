@@ -14,6 +14,9 @@ struct Cli {
 
     #[clap(short, long)]
     end: Option<String>,
+
+    #[clap(action, short, long)]
+    disable_suffix: bool,
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -37,10 +40,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let dur = Duration::from_secs((start_timestamp - end_timestamp).unsigned_abs());
     let mut dur_string = format_duration(dur).to_string();
 
-    if start_timestamp > end_timestamp {
-        dur_string.push_str(" ago");
-    } else {
-        dur_string.push_str(" from now");
+    if !args.disable_suffix {
+        if start_timestamp > end_timestamp {
+            dur_string.push_str(" ago");
+        } else {
+            dur_string.push_str(" from now");
+        }
     }
 
     println!("{}", dur_string);
